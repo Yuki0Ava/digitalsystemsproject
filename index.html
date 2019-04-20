@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <title>
+    RoboWalter
+  </title>
+  <link href="./main.css" rel="stylesheet" type="text/css">
+</head>
+<body>
+  <div class="tab">
+    <button class="tablinks" onclick="openSite(event, 'About')" id="defaultOpen">About</button>
+    <button class="tablinks" onclick="openSite(event, 'Report')">Report</button>
+    <button class="tablinks" onclick="openSite(event, 'Code')">Code</button>
+    <button class="tablinks" onclick="openSite(event, 'Circuit')">Circuit</button>
+    <button class="tablinks" onclick="openSite(event, 'Team')">Team</button>
+  </div>
+
+  <div id="About" class="tabcontent">
+    <h1>About our RoboWalter</h1>
+    <p>Here we will briefly describe what we did for our project in the course named EITA15</p>
+  </div>
+
+  <div id="Report" class="tabcontent">
+    <h1>Report</h1>
+    <p>Here we will post a link or directly the report</p>
+  </div>
+
+  <div id="Code" class="tabcontent">
+    <h1>Code</h1>
+    <p>Here we will paste in an unordered/ordered list with the code so that you can scroll</p>
+  </div>
+
+  <div id="Circuit" class="tabcontent">
+    <h1>Curcuit</h1>
+    <p>Here we will post a picture of the schematic of our circuit</p>
+  </div>
+
+  <div id="Team" class="tabcontent">
+    <h1>Team</h1>
+    <p>Here is the team behind the creation of RoboWalter and contact information to each of us</p>
+  </div>
+
+  <script>
+  function openSite(evt, siteName){
+    var i, tabcontent, tablinks;
+    tabcontent = document.getElementsByClassName("tabcontent");
+    for (i = 0; i < tabcontent.length; i++){
+      tabcontent[i].style.display = "none";
+    }
+
+    tablinks = document.getElementsByClassName("tablinks");
+    for(i = 0; i < tablinks.length; i++){
+      tablinks[i].className = tablinks[i].className.replace(" active", "");
+    }
+
+    document.getElementById(siteName).style.display = "block";
+    evt.currentTarget.className += " active";
+
+  }
+
+  document.getElementById("defaultOpen").click();
+  </script>
+</body>
+</html>
