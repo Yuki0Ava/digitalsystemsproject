@@ -14,32 +14,154 @@
     <button class="tablinks" onclick="openSite(event, 'Report')">Report</button>
     <button class="tablinks" onclick="openSite(event, 'Code')">Code</button>
     <button class="tablinks" onclick="openSite(event, 'Circuit')">Circuit</button>
-    <button class="tablinks" onclick="openSite(event, 'Team')">Team</button>
   </div>
 
   <div id="About" class="tabcontent">
     <h1>About our RoboWalter</h1>
-    <p>Here we will briefly describe what we did for our project in the course named EITA15</p>
+    <br>
+    <br>
+    <img src="RoboWalter.JPG" class="profile">
+    <br>
+    <br>
+    <p> Hello! My name is RoboWalter. My main function is that you can communicate with me through Bluetooth.</p>
+    <p> I really don't like loseing connection with my commander because then I will roll into a wall.</p>
+    <p> I also have a display (but my creators didn't manage/have time to implement it)</p>
+    <p> I cannot move unless you turn on the switch inside my stomach. </p>
+    <br>
+    <br>
   </div>
 
   <div id="Report" class="tabcontent">
     <h1>Report</h1>
-    <p>Here we will post a link or directly the report</p>
+    <br>
+    <br>
+    <p>If you want to know more about RoboWalter you can read the report <a href="https://www.google.se/">here</a>.</p>
+    <br>
+    <br>
   </div>
 
   <div id="Code" class="tabcontent">
-    <h1>Code</h1>
-    <p>Here we will paste in an unordered/ordered list with the code so that you can scroll</p>
+    <h1>RoboWalter's Code</h1>
+    <br>
+    <br>
+    <table>
+      <tr>
+        <td>/*</td>
+      </tr>
+      <tr>
+        <td class="indent">* robo_walter.c</td>
+      </tr>
+      <tr>
+        <td class="indent">*</td>
+      </tr>
+      <tr>
+        <td class="indent">* Created: 2019-04-04 13:43:00</td>
+      </tr>
+      <tr>
+        <td class="indent">*/</td>
+      </tr>
+      <tr>
+        <td>#define F_CPU 1000000UL</td>
+      </tr>
+      <tr>
+        <td>#define BAUDE_RATE 9600</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>#include &#60;avr/interrupt.h&#62;</td>
+      </tr>
+      <tr>
+        <td>#include &#60;avr/io.h&#62;</td>
+      </tr>
+      <tr>
+        <td>#include &#60;util/delay.h&#62;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>void usartInit();</td>
+      </tr>
+      <tr>
+        <td>char usartReceive(uint8_t channel);</td>
+      </tr>
+      <tr>
+        <td>void usartTransmit(uint8_t channel, unsigned char data);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+    </table>
+    <br>
+    <br>
   </div>
 
   <div id="Circuit" class="tabcontent">
     <h1>Curcuit</h1>
-    <p>Here we will post a picture of the schematic of our circuit</p>
-  </div>
-
-  <div id="Team" class="tabcontent">
-    <h1>Team</h1>
-    <p>Here is the team behind the creation of RoboWalter and contact information to each of us</p>
+    <br>
+    <br>
+    <p>Here is a picture of the curcuit of our project - RoboWalter</p>
+    <br>
+    <br>
+    <img src="RoboWalter_Final.png" class="center">
+    <br>
+    <br>
   </div>
 
   <script>
