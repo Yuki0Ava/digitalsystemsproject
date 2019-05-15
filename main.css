@@ -102,9 +102,10 @@ p{
 table {
   font-family: Courier;
   border-collapse: collapse;
-  overflow: scroll;
-  margin-left: auto;
-  margin-right: auto;
+  position: relative;
+  height: 300px;
+  display: block;
+  overflow: auto;
 }
 
 td {
@@ -123,4 +124,16 @@ tr:nth-child(odd) {
 
 .indent{
   text-indent: 10px;
+}
+
+.indent2{
+  text-indent: 25px;
+}
+
+.indent3{
+  text-indent: 50px;
+}
+
+.indent4{
+  text-indent: 75px;
 }

@@ -24,9 +24,10 @@
     <br>
     <br>
     <p> Hello! My name is RoboWalter. My main function is that you can communicate with me through Bluetooth.</p>
-    <p> I really don't like loseing connection with my commander because then I will roll into a wall.</p>
-    <p> I also have a display (but my creators didn't manage/have time to implement it)</p>
-    <p> I cannot move unless you turn on the switch inside my stomach. </p>
+    <p> I really don't like losing the connection I have with my commander because then I will roll into a wall.</p>
+    <p> I also have a display that shows my emotion when I drive. I hate to stand still so that is when I am sad,</p>
+    <p> but if I get a command to drive I become happy!</p>
+    <p> I cannot move unless you turn on the switch on my back. </p>
     <br>
     <br>
   </div>
@@ -42,6 +43,9 @@
 
   <div id="Code" class="tabcontent">
     <h1>RoboWalter's Code</h1>
+    <br>
+    <br>
+    <p> If you scroll in the table below you can see the code it took to programme RoboWalter</p>
     <br>
     <br>
     <table>
@@ -94,58 +98,1054 @@
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td>&nbsp;</td>
+        <td>void timerInit();</td>
+      </tr>
+      <tr>
+        <td>void setPulseLeftA(uint8_t pulse);</td>
+      </tr>
+      <tr>
+        <td>void setPulseLeftB(uint8_t pulse);</td>
+      </tr>
+      <tr>
+        <td>void setPulseRightA(uint8_t pulse);</td>
+      </tr>
+      <tr>
+        <td>void setPulseRightB(uint8_t pulse);</td>
       </tr>
       <tr>
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td>&nbsp;</td>
+        <td>void leftForward(uint8_t speed);</td>
+      </tr>
+      <tr>
+        <td>void leftBackwards(uint8_t speed);</td>
+      </tr>
+      <tr>
+        <td>void rightForward(uint8_t speed);</td>
+      </tr>
+      <tr>
+        <td>void rightBackwards(uint8_t speed);</td>
       </tr>
       <tr>
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td>&nbsp;</td>
+        <td>void init();</td>
       </tr>
       <tr>
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td>&nbsp;</td>
+        <td>volatile uint8_t speedOffset = 0;</td>
       </tr>
       <tr>
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td>&nbsp;</td>
+        <td>int main(void){</td>
+      </tr>
+      <tr>
+        <td class="indent2">init();</td>
+      </tr>
+      <tr>
+        <td class="indent2">while (1){}</td>
+      </tr>
+      <tr>
+        <td>}</td>
       </tr>
       <tr>
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td>&nbsp;</td>
+        <td>/**</td>
+      </tr>
+      <tr>
+        <td class="indent">* Initialize all variables, methods.</td>
+      </tr>
+      <tr>
+        <td class="indent">*/</td>
+      </tr>
+      <tr>
+        <td>void init() {</td>
+      </tr>
+      <tr>
+        <td class="indent2">cli();</td>
+      </tr>
+      <tr>
+        <td class="indent2">usartInit();</td>
+      </tr>
+      <tr>
+        <td class="indent2">timerInit();</td>
+      </tr>
+      <tr>
+        <td class="indent2">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//set input for Bluetooth module input(TX) (RXD1 on atmega)</td>
+      </tr>
+      <tr>
+        <td class="indent2">DDRD &#38;= ~(1 << 2);</td>
+      </tr>
+      <tr>
+        <td class="indent2">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Enable SLP H-brygga</td>
+      </tr>
+      <tr>
+        <td class="indent2">DDRA |= (1 << DDRA5);</td>
+      </tr>
+      <tr>
+        <td class="indent2">PORTA |= (1 << DDRA5);</td>
+      </tr>
+      <tr>
+        <td class="indent2">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Set first bit in the status register (SREG)</td>
+      </tr>
+      <tr>
+        <td class="indent2">sei();</td>
+      </tr>
+      <tr>
+        <td class="indent2">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">leftForward(0);</td>
+      </tr>
+      <tr>
+        <td class="indent2">rightForward(0);</td>
+      </tr>
+      <tr>
+        <td>}</td>
+      </tr>
+      <tr>
+        <td>/** ##### BLUETOOTH MODULE INTERRUPTS #####</td>
+      </tr>
+      <tr>
+        <td class="indent">* This part will run whenever we recieve something</td>
+      </tr>
+      <tr>
+        <td class="indent">* from the Bluetooth module.</td>
+      </tr>
+      <tr>
+        <td class="indent">*/</td>
+      </tr>
+      <tr>
+        <td>ISR(USART1_RX_vect){</td>
+      </tr>
+      <tr>
+        <td class="indent2">volatile unsigned char data = UDR1;</td>
+      </tr>
+      <tr>
+        <td class="indent2">volatile uint8_t speed = 120;</td>
+      </tr>
+      <tr>
+        <td class="indent2">usartTransmit(1, data);</td>
+      </tr>
+      <tr>
+        <td class="indent2">&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">switch(data) {</td>
       </tr>
       <tr>
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td>&nbsp;</td>
+        <td class="indent3">//a left forward</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 193:</td>
+      </tr>
+      <tr>
+        <td class="indent4">leftForward(speed);</td>
+      </tr>
+      <tr>
+        <td class="indent4">break;</td>
       </tr>
       <tr>
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td>&nbsp;</td>
+        <td class="indent3">//b left backwards</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 194:</td>
+      </tr>
+      <tr>
+        <td class="indent4">leftBackwards(80);</td>
+      </tr>
+      <tr>
+        <td class="indent4">break;</td>
       </tr>
       <tr>
         <td>&nbsp;</td>
       </tr>
       <tr>
-        <td>&nbsp;</td>
+        <td class="indent3">//c right forward</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 195:</td>
+      </tr>
+      <tr>
+        <td class="indent4">rightForward(speed i speedOffset);</td>
+      </tr>
+      <tr>
+        <td class="indent4">break;</td>
       </tr>
       <tr>
         <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent3">//ENTER right backwards</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 29:</td>
+      </tr>
+      <tr>
+        <td class="indent4">rightBackwards(80);</td>
+      </tr>
+      <tr>
+        <td class="indent4">break;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent3">//, right stop</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 92:</td>
+      </tr>
+      <tr>
+        <td class="indent4">leftForward(0);</td>
+      </tr>
+      <tr>
+        <td class="indent4">break;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent3">//. left stop</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 94:</td>
+      </tr>
+      <tr>
+        <td class="indent4">rightForward(0);</td>
+      </tr>
+      <tr>
+        <td class="indent4">break;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent3">//8 both stop</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 112:</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 120:</td>
+      </tr>
+      <tr>
+        <td class="indent4">rightBackwards(0);</td>
+      </tr>
+      <tr>
+        <td class="indent4">leftBackwards(0);</td>
+      </tr>
+      <tr>
+        <td class="indent4">break;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent3">//9 add to speedoffset</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 121:</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 113:</td>
+      </tr>
+      <tr>
+        <td class="indent4">speedOffset += 2;</td>
+      </tr>
+      <tr>
+        <td class="indent4">break;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent3">//I add to speedoffset</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 217:</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 209:</td>
+      </tr>
+      <tr>
+        <td class="indent4">speedOffset -= 2;</td>
+      </tr>
+      <tr>
+        <td class="indent4">break;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent3">//J left fast forward</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 218:</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 210:</td>
+      </tr>
+      <tr>
+        <td class="indent4">leftForward(speed * 1.6);</td>
+      </tr>
+      <tr>
+        <td class="indent4">break;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent3">//K left slow forward</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 219:</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 211:</td>
+      </tr>
+      <tr>
+        <td class="indent4">leftForward(speed * 0.4);</td>
+      </tr>
+      <tr>
+        <td class="indent4">break;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent3">//L right fast forward</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 220:</td>
+      </tr>
+      <tr>
+        <td class="indent4">rightForward(speed * 1.6);</td>
+      </tr>
+      <tr>
+        <td class="indent4">break;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent3">//M right slow forward</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 221:</td>
+      </tr>
+      <tr>
+        <td class="indent4">rightForward(speed * 0.4);</td>
+      </tr>
+      <tr>
+        <td class="indent4">break;</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 102:</td>
+      </tr>
+      <tr>
+        <td class="indent4">rightForward(255);</td>
+      </tr>
+      <tr>
+        <td class="indent4">leftForward(255);</td>
+      </tr>
+      <tr>
+        <td class="indent4">break;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">}</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>}</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>//######### DRIVE METHODS ############</td>
+      </tr>
+      <tr>
+        <td>/**</td>
+      </tr>
+      <tr>
+        <td class="indent">* Drives the left motor forward with a defined speed.</td>
+      </tr>
+      <tr>
+        <td class="indent">* Uses PWM to set the defined speed.</td>
+      </tr>
+      <tr>
+        <td class="indent">*</td>
+      </tr>
+      <tr>
+        <td class="indent">@param speed the desired speed of the motor</td>
+      </tr>
+      <tr>
+        <td class="indent">**/</td>
+      </tr>
+      <tr>
+        <td>void leftForward(unit8_t speed) {</td>
+      </tr>
+      <tr>
+        <td class="indent2">PORTB &#38;= ~(1 << 6);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">setPulseLeftB(0);</td>
+      </tr>
+      <tr>
+        <td class="indent2">setPulseLeftA(speed);</td>
+      </tr>
+      <tr>
+        <td>}</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>/**</td>
+      </tr>
+      <tr>
+        <td class="indent">* Drives the left motor backwards with a defined speed.</td>
+      </tr>
+      <tr>
+        <td class="indent">* Uses PWM to set the defined speed.</td>
+      </tr>
+      <tr>
+        <td class="indent">*</td>
+      </tr>
+      <tr>
+        <td class="indent">@param speed the desired speed of the motor</td>
+      </tr>
+      <tr>
+        <td class="indent">**/</td>
+      </tr>
+      <tr>
+        <td>void leftBackwards(uint8_t speed) {</td>
+      </tr>
+      <tr>
+        <td class="indent2">setPulseLeftA(0);</td>
+      </tr>
+      <tr>
+        <td class="indent2">setPulseLeftB(speed);</td>
+      </tr>
+      <tr>
+        <td>}</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>/**</td>
+      </tr>
+      <tr>
+        <td class="indent">* Drives the right motor backwards with a defined speed.</td>
+      </tr>
+      <tr>
+        <td class="indent">* Uses PWM to set the defined speed.</td>
+      </tr>
+      <tr>
+        <td class="indent">*</td>
+      </tr>
+      <tr>
+        <td class="indent">@param speed the desired speed of the motor</td>
+      </tr>
+      <tr>
+        <td class="indent">**/</td>
+      </tr>
+      <tr>
+        <td>void rightBackwards(uint8_t speed) {</td>
+      </tr>
+      <tr>
+        <td class="indent2">setPulseRightB(0);</td>
+      </tr>
+      <tr>
+        <td class="indent2">setPulseRightA(speed);</td>
+      </tr>
+      <tr>
+        <td>}</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>/**</td>
+      </tr>
+      <tr>
+        <td class="indent">* Drives the right motor forwards with a defined speed.</td>
+      </tr>
+      <tr>
+        <td class="indent">* Uses PWM to set the defined speed.</td>
+      </tr>
+      <tr>
+        <td class="indent">*</td>
+      </tr>
+      <tr>
+        <td class="indent">@param speed the desired speed of the motor</td>
+      </tr>
+      <tr>
+        <td class="indent">**/</td>
+      </tr>
+      <tr>
+        <td>void rightForward(uint8_t speed) {</td>
+      </tr>
+      <tr>
+        <td class="indent2">setPulseRightA(0);</td>
+      </tr>
+      <tr>
+        <td class="indent2">setPulseRightB(speed);</td>
+      </tr>
+      <tr>
+        <td>}</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>//######### USART #########</td>
+      </tr>
+      <tr>
+        <td>/** Enables USART[0-1] with default values both</td>
+      </tr>
+      <tr>
+        <td class="indent">* the oled display and Bluetooth module</td>
+      </tr>
+      <tr>
+        <td class="indent">*/</td>
+      </tr>
+      <tr>
+        <td>void usartInit() {</td>
+      </tr>
+      <tr>
+        <td class="indent2">//#### USART0 OLED DISPLAY</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Nollstället värden</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Nollstället värden</td>
+      </tr>
+      <tr>
+        <td class="indent2">UCSR0B = 0X00;</td>
+      </tr>
+      <tr>
+        <td class="indent2">UCSR0C = 0X00;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Baud rate</td>
+      </tr>
+      <tr>
+        <td class="indent2">UBRR0 = 6;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Enable transmitter, receiver</td>
+      </tr>
+      <tr>
+        <td class="indent2">UCSR0B |= (1 << RXEN0) | (1 << TXEN0);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//8-bits (011)</td>
+      </tr>
+      <tr>
+        <td class="indent2">UCSR0C |= (1 << UCSZ00) | (1 << UCSZ01);</td>
+      </tr>
+      <tr>
+        <td class="indent2">//1 STOP BIT (0)</td>
+      </tr>
+      <tr>
+        <td class="indent2">//UCSR0C &#38;= ~(1 << USBS0);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//#### USART1 BLUETOOTH MODULE</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Nollställer värden</td>
+      </tr>
+      <tr>
+        <td class="indent2">UCSR1B = 0x00;</td>
+      </tr>
+      <tr>
+        <td class="indent2">UCSR1C = 0x00;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//9600bps, 8-bits, 1 stop bit, parity none</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Baud rate 9600</td>
+      </tr>
+      <tr>
+        <td class="indent2">UBRR1 = 6;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Enable transmitter, receiver</td>
+      </tr>
+      <tr>
+        <td class="indent2">UCSR1B |= (1 << RXEN1) | (1 << TXEN1);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Enables receiver, transmitter interrupts</td>
+      </tr>
+      <tr>
+        <td class="indent2">UCSR1B |= (1 << RXCIE1);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//8-bits (011)</td>
+      </tr>
+      <tr>
+        <td class="indent2">UCSR1C |= (1 << UCSZ00) | (1 << UCSZ01);</td>
+      </tr>
+      <tr>
+        <td class="indent2">//UCSR1B &#38;= ~(1 << UCSZ02);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//1 stop bit (0)</td>
+      </tr>
+      <tr>
+        <td class="indent2">//UCSR1C &#38;= ~(1 << USBS1);</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Pairty none (00)</td>
+      </tr>
+      <tr>
+        <td class="indent2">//UCSR1C &#38;= ~(1 << UPM11);</td>
+      </tr>
+      <tr>
+        <td class="indent2">//UCSR1C &#38;= ~(1 << UPM10);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>}</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>/** Returns the received data from USART buffert.*/</td>
+      </tr>
+      <tr>
+        <td>char usartReceive(uint8_t channel){</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">switch(channel){</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 0:</td>
+      </tr>
+      <tr>
+        <td class="indent4">//Wait as long as no data in receiver buffer</td>
+      </tr>
+      <tr>
+        <td class="indent4">while(!(UCSR0A & (1 << RXC0)));</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent4">//Return data from buffer</td>
+      </tr>
+      <tr>
+        <td class="indent4">return UDR0;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 1:</td>
+      </tr>
+      <tr>
+        <td class="indent4">////TODO has to be checked</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent4">//Wait as long as no data in receiver buffer</td>
+      </tr>
+      <tr>
+        <td class="indent4">while(!(UCSR1A & (1 << RXC1)));</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent4">//Return data from buffer</td>
+      </tr>
+      <tr>
+        <td class="indent4">return UDR1;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent3">default:</td>
+      </tr>
+      <tr>
+        <td class="indent4">return '_';</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">}</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>}</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>/** Sends the data to the USART channel. */</td>
+      </tr>
+      <tr>
+        <td>void usartTransmit(uint8_t channel, unsigned char data){</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">switch(channel){</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 0:</td>
+      </tr>
+      <tr>
+        <td class="indent4">//Wait as long as there is data in buffer</td>
+      </tr>
+      <tr>
+        <td class="indent4">while(!(UCSR0A & (1 << UDRE0)));</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent4">//Send data 0xC6</td>
+      </tr>
+      <tr>
+        <td class="indent4">UDR0 = data;</td>
+      </tr>
+      <tr>
+        <td class="indent4">break;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent3">case 1:</td>
+      </tr>
+      <tr>
+        <td class="indent4">//Wait as long as there is data in buffer</td>
+      </tr>
+      <tr>
+        <td class="indent4">while(!(UCSR1A & (1 << UDRE1)));</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent4">//Send data 0xC6</td>
+      </tr>
+      <tr>
+        <td class="indent4">UDR1 = data;</td>
+      </tr>
+      <tr>
+        <td class="indent4">break;</td>
+      </tr>
+      <tr>
+        <td class="indent2">}</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>}</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>//##### TIMERS FOR PWM #####</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>/** Timer/counter for adc conversion.*/</td>
+      </tr>
+      <tr>
+        <td>/void timerInit(){</td>
+      </tr>
+      <tr>
+        <td class="indent2">//###### TIMER 1, 3 ######</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Control register A</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Compare output mode selected with COM3A1</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//#### Motor left</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Clear OC3A on compare match</td>
+      </tr>
+      <tr>
+        <td class="indent2">TCCR3A |= (1 << COM3A1);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Clear OC3B on compare match (1-0)</td>
+      </tr>
+      <tr>
+        <td class="indent2">TCCR3A |= (1 << COM3B1);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//OC3A-B is output</td>
+      </tr>
+      <tr>
+        <td class="indent2">DDRB |= (1 << 6) | (1 << 7);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//#### Motor right</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Clear OC1A on compare match</td>
+      </tr>
+      <tr>
+        <td class="indent2">TCCR1A |= (1 << COM1A1);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Clear OC1B on compare match (1-0)</td>
+      </tr>
+      <tr>
+        <td class="indent2">TCCR1A |= (1 << COM1B1);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//O1A-B is output</td>
+      </tr>
+      <tr>
+        <td class="indent2">DDRB |= (1 << 4) | (1 << 5);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Fast PWM with ICR3 (1-1-1-0)</td>
+      </tr>
+      <tr>
+        <td class="indent2">//ICR3 is the top, at this value the timer will restart</td>
+      </tr>
+      <tr>
+        <td class="indent2">TCCR3A |= (1 << WGM31);</td>
+      </tr>
+      <tr>
+        <td class="indent2">TCCR3B |= (1 << WGM32) | (1 << WGM33);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Prescaler appropriate divison factor is used (1-0-1)</td>
+      </tr>
+      <tr>
+        <td class="indent2">TCCR3B |= (1 << CS31) | (1 << CS30);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Fast PWM with ICR1 (1-1-1-0)</td>
+      </tr>
+      <tr>
+        <td class="indent2">//ICR1 is the top, at this value the timer will restart</td>
+      </tr>
+      <tr>
+        <td class="indent2">TCCR1A |= (1 << WGM11);</td>
+      </tr>
+      <tr>
+        <td class="indent2">TCCR1B |= (1 << WGM12) | (1 << WGM13);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Prescaler appropriate divison factor is used (1-0-1)</td>
+      </tr>
+      <tr>
+        <td class="indent2">TCCR1B |= (1 << CS11) | (1 << CS10);</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Sets the eriod of the cycle for both timer 3 and 1</td>
+      </tr>
+      <tr>
+        <td class="indent2">ICR3 = 255;</td>
+      </tr>
+      <tr>
+        <td class="indent2">ICR1 = 255;</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>}</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>/** Sets the pulse for forward speed of the left motor*/</td>
+      </tr>
+      <tr>
+        <td>void setPulseLeftA(uint8_t pulse){</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Output compare register OCR3A</td>
+      </tr>
+      <tr>
+        <td class="indent2">OCR3A = pulse;</td>
+      </tr>
+      <tr>
+        <td>}</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>/** Sets the pulse for backwards speed of the left motor*/</td>
+      </tr>
+      <tr>
+        <td>void setPulseLeftB(uint8_t pulse){</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Output compare register OCR3B</td>
+      </tr>
+      <tr>
+        <td class="indent2">OCR3B = pulse;</td>
+      </tr>
+      <tr>
+        <td>}</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>/** Sets the pulse for forward speed of the right motor*/</td>
+      </tr>
+      <tr>
+        <td>void setPulseRightA(uint8_t pulse){</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Output compare register OCR1A</td>
+      </tr>
+      <tr>
+        <td class="indent2">OCR1A = pulse;</td>
+      </tr>
+      <tr>
+        <td>}</td>
+      </tr>
+      <tr>
+        <td>&nbsp;</td>
+      </tr>
+      <tr>
+        <td>/** Sets the pulse for backwards speed of the right motor*/</td>
+      </tr>
+      <tr>
+        <td>void setPulseRightB(uint8_t pulse){</td>
+      </tr>
+      <tr>
+        <td class="indent2">//Output compare register OCR1B</td>
+      </tr>
+      <tr>
+        <td class="indent2">OCR1B = pulse;</td>
+      </tr>
+      <tr>
+        <td>}</td>
       </tr>
     </table>
     <br>
